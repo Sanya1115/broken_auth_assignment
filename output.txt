@@ -1,0 +1,27 @@
+========== TASK 1 : LOGIN ==========
+
+$ curl -X POST http://localhost:3000/auth/login 
+-H "Content-Type: application/json" 
+-d '{"email":"[2k22.csai.2211341@gmail.com](mailto:2k22.csai.2211341@gmail.com)","password":"password123"}'
+
+{"message":"OTP sent","loginSessionId":"lkgrjf8q"}
+
+========== TASK 2 : VERIFY OTP ==========
+
+$ curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp 
+-H "Content-Type: application/json" 
+-d '{"loginSessionId":"lkgrjf8q","otp":"814808"}'
+
+{"message":"OTP verified","sessionId":"lkgrjf8q"}
+
+========== TASK 3 : GET TOKEN ==========
+
+$ curl -b cookies.txt -X POST http://localhost:3000/auth/token
+
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjJrMjIuY3NhaS4yMjExMzQxQGdtYWlsLmNvbSIsInNlc3Npb25JZCI6ImxrZ3JqZjhxIiwiaWF0IjoxNzcwOTYzMjcwLCJleHAiOjE3NzA5NjQxNzB9.j8MJPUkV-HTlJFhedQh6-x7iMjRKrhpko4U-4zPO4L0","expires_in":900}
+
+========== TASK 4 : PROTECTED ROUTE ==========
+
+$ curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjJrMjIuY3NhaS4yMjExMzQxQGdtYWlsLmNvbSIsInNlc3Npb25JZCI6ImxrZ3JqZjhxIiwiaWF0IjoxNzcwOTYzMjcwLCJleHAiOjE3NzA5NjQxNzB9.j8MJPUkV-HTlJFhedQh6-x7iMjRKrhpko4U-4zPO4L0" http://localhost:3000/protected
+
+{"message":"Access granted","user":{"email":"[2k22.csai.2211341@gmail.com](mailto:2k22.csai.2211341@gmail.com)","sessionId":"lkgrjf8q","iat":1770963270,"exp":1770964170},"success_flag":"FLAG-MmsyMi5jc2FpLjIyMTEzNDFAZ21haWwuY29tX0NPTVBMRVRFRF9BU1NJR05NRU5U"}
