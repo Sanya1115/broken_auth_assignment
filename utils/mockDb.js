@@ -1,13 +1,16 @@
 const getSecretFromDB = async () => {
+  // simulate DB latency
   await new Promise((resolve) => setTimeout(resolve, 120));
 
-  if (!process.env.APPLICATION_SECRET) {
+  const secret = process.env.APPLICATION_SECRET;
+
+  if (!secret) {
     throw new Error(
-      "Mock DB error: missing APPLICATION_SECRET env var for token generation."
+      "Missing APPLICATION_SECRET environment variable."
     );
   }
 
-  return process.env.APPLICATION_SECRET;
+  return secret;
 };
 
 module.exports = { getSecretFromDB };
